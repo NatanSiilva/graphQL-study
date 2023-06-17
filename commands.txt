@@ -1,0 +1,11 @@
+go mod init github.com/NatanSiilva/graphQL-study - cria o arquivo go.mod
+
+printf '// +build tools\npackage tools\nimport (_ "github.com/99designs/gqlgen"\n _ "github.com/99designs/gqlgen/graphql/introspection")' | gofmt > tools.go - cria o arquivo tools.go
+
+go mod tidy - atualiza as dependencias
+
+https://gqlgen.com/ - documentação do gqlgen
+
+go run github.com/99designs/gqlgen init - cria o arquivo gqlgen.yml
+
+go run ./server.go  - roda o servidor
