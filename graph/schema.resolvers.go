@@ -6,7 +6,6 @@ package graph
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/NatanSiilva/graphQL-study/graph/model"
 )
@@ -44,10 +43,13 @@ func (r *mutationResolver) AddCourse(ctx context.Context, input model.NewCourse)
 // Categories is the resolver for the categories field.
 func (r *queryResolver) Categories(ctx context.Context) ([]*model.Category, error) {
 	categories, err := r.CategoryDB.FindAll()
+
 	if err != nil {
 		return nil, err
 	}
+
 	var categoriesModel []*model.Category
+
 	for _, category := range categories {
 		categoriesModel = append(categoriesModel, &model.Category{
 			ID:          category.ID,
@@ -55,12 +57,29 @@ func (r *queryResolver) Categories(ctx context.Context) ([]*model.Category, erro
 			Description: &category.Description,
 		})
 	}
+
 	return categoriesModel, nil
 }
 
 // Courses is the resolver for the courses field.
 func (r *queryResolver) Courses(ctx context.Context) ([]*model.Course, error) {
-	panic(fmt.Errorf("not implemented: Courses - courses"))
+	courses, err := r.CourseDB.FindAll()
+
+	if err != nil {
+		return nil, err
+	}
+
+	var coursesModel []*model.Course
+
+	for _, course := range courses {
+		coursesModel = append(coursesModel, &model.Course{
+			ID:          course.ID,
+			Name:        course.Name,
+			Description: &course.Description,
+		})
+	}
+
+	return coursesModel, nil
 }
 
 // Mutation returns MutationResolver implementation.
